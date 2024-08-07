@@ -1,0 +1,11 @@
+# ninja log v5
+16	179	6794067142146671	CMakeFiles/Snake.dir/src/snakeInfo.cpp.obj	e85de65b59b1e988
+6	2326	6794067163572701	CMakeFiles/Snake.dir/src/Snake.cpp.obj	ac9751400c93b4a8
+0	2352	6794067163572701	CMakeFiles/Snake.dir/src/engine.cpp.obj	4919f170d5c559b4
+11	2353	6794067163728959	CMakeFiles/Snake.dir/src/draw.cpp.obj	af1c53c589541696
+2354	3743	6794067177481586	Snake.exe	8358d52fa1fe9d56
+16	2940	6794091043515609	CMakeFiles/Snake.dir/src/draw.cpp.obj	af1c53c589541696
+2	3012	6794091044155247	CMakeFiles/Snake.dir/src/Snake.cpp.obj	ac9751400c93b4a8
+6	3096	6794091045224624	CMakeFiles/Snake.dir/src/engine.cpp.obj	4919f170d5c559b4
+2	1585	6794091927197182	CMakeFiles/Snake.dir/src/snakeInfo.cpp.obj	e85de65b59b1e988
+1586	2515	6794091936406555	Snake.exe	8358d52fa1fe9d56
