@@ -21,6 +21,7 @@ void Engine::draw() {
 
 	//pauza
 	if (obecnyStanGry == StanGry::PAUZA) {
+		textPauza.setString("    PAUZA\n\n Highscore: \n\n" + to_string(*ptr) + ". \t\t\t" + to_string(wynik));
 		window.draw(textPauza);
 	}
 

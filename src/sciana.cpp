@@ -2,7 +2,7 @@
 
 Sciana::Sciana(Vector2f pozycja, Vector2f wielkosc) {
 	ksztaltSciany.setSize(wielkosc);
-	ksztaltSciany.setFillColor(Color::White);
+	ksztaltSciany.setFillColor(Color(120, 120, 120));
 	ksztaltSciany.setPosition(pozycja);
 }
 
