@@ -67,7 +67,11 @@ public:
 
 	void initText();
 	void initTextPrzetrwanie();
-	void initTextPauza();
+	void initTextKoniecGry();
+	void initTextPauza(sf::Text& text, const sf::Font& font, const std::string& string,
+		unsigned int characterSize, const sf::Color& fillColor,
+		const sf::Color& outlineColor, float outlineThickness,
+		const Vector2f& position);
 
 	void input();
 	void inputPrzetrwanie(); // wystarczy dodac ifa do input() ale moze w przyszlosci bedzie wiecej roznic

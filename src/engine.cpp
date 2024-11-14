@@ -24,28 +24,16 @@ Engine::Engine() {
 	ar = { 1, 2, 3, 4, 5 };
 	ptr = ar.begin();
 
-	textKoniecGry.setFont(fontKoniecGry);
-	textKoniecGry.setCharacterSize(40);
-	textKoniecGry.setFillColor(Color::Blue);
-	textKoniecGry.setString("KONIEC GRY");
-	FloatRect textKoniecGryGranice = textKoniecGry.getLocalBounds();
-	textKoniecGry.setPosition(Vector2f(resolution.x / 2 - textKoniecGryGranice.width / 2, 100));
+	wynik = 0;
+	wynikPrzetrwanie = 0;
 
-	textPauza.setFont(font);
-	textPauza.setCharacterSize(40);
-	textPauza.setFillColor(Color::Yellow);
-	textPauza.setOutlineColor(Color::Blue);
-	textPauza.setOutlineThickness(2);
-	textPauza.setString("    PAUZA\n\n Highscore: \n\n" + to_string(*ptr) + ". \t\t\t0");
-	FloatRect textPauzaGranice = textPauza.getLocalBounds();
-	textPauza.setPosition(Vector2f(resolution.x / 2 - textPauzaGranice.width / 2, 100));
-
-	textPauzaPrzetrwanie.setFont(font);
-	textPauzaPrzetrwanie.setCharacterSize(40);
-	textPauzaPrzetrwanie.setFillColor(Color::Yellow);
-	textPauzaPrzetrwanie.setString("    PAUZA\n\n Highscore: \n\n" + to_string(*ptr) + ". \t\t\t0");
-	FloatRect textPauzaPrzetrwanieGranice = textPauzaPrzetrwanie.getLocalBounds();
-	textPauzaPrzetrwanie.setPosition(Vector2f(resolution.x / 2 - textPauzaPrzetrwanieGranice.width / 2, 100));
+	initTextKoniecGry();
+	initTextPauza(textPauza, font, "    PAUZA\n\n Highscore: \n\n" + to_string(*ptr) + ". \t\t\t0",
+		40, Color::Yellow, Color::Blue, 2,
+		Vector2f(resolution.x / 2, 100));
+	initTextPauza(textPauzaPrzetrwanie, font, "    PAUZA\n\n Highscore: \n\n" + to_string(*ptr) + ". \t\t\t0",
+		40, Color::Yellow, Color::Blue, 2,
+		Vector2f(resolution.x / 2, 100));
 
 }
 
@@ -57,26 +45,52 @@ void Engine::initOkno() {
 
 void Engine::initText() {
 	text.setFont(font);
-	text.setCharacterSize(14);
-	text.setFillColor(Color::Blue);
-	text.setString("JABLKA: " + to_string(zjedzoneJablka));
-	text.setPosition(Vector2f(15, 0));
+	text.setCharacterSize(15);
+	text.setFillColor(Color::Cyan);
+	text.setString("WYNIK: " + to_string(zjedzoneJablka));
+	FloatRect bounds = text.getLocalBounds();
+	text.setPosition(Vector2f(resolution.x - bounds.width - 38, 32));
 }
 
 void Engine::initTextPrzetrwanie() {
 	text.setFont(font);
-	text.setCharacterSize(14);
-	text.setFillColor(Color::Blue);
+	text.setCharacterSize(15);
+	text.setFillColor(Color::Cyan);
 	text.setString("WYNIK: " + to_string(zjedzoneJablka));
-	text.setPosition(Vector2f(15, 0));
+	FloatRect bounds = text.getLocalBounds();
+	text.setPosition(Vector2f(resolution.x - bounds.width - 38, 32));
 }
 
+void Engine::initTextKoniecGry() {
+	textKoniecGry.setFont(fontKoniecGry);
+	textKoniecGry.setCharacterSize(40);
+	textKoniecGry.setFillColor(Color::Blue);
+	textKoniecGry.setString("KONIEC GRY");
+
+	FloatRect bounds = textKoniecGry.getLocalBounds();
+	textKoniecGry.setOrigin(bounds.width / 2, bounds.height / 2);
+	textKoniecGry.setPosition(Vector2f(resolution.x / 2, 100)); 
+}
+
+void Engine::initTextPauza(sf::Text& text, const sf::Font& font, const std::string& string,
+	unsigned int characterSize, const sf::Color& fillColor,
+	const sf::Color& outlineColor, float outlineThickness,
+	const Vector2f& position) {
+	text.setFont(font);
+	text.setString(string);
+	text.setCharacterSize(characterSize);
+	text.setFillColor(fillColor);
+	text.setOutlineColor(outlineColor);
+	text.setOutlineThickness(outlineThickness);
+
+	FloatRect bounds = text.getLocalBounds();
+	text.setPosition(Vector2f(position.x - bounds.width / 2, position.y));
+}
 
 void Engine::rozpocznijGre() {
 	zjedzoneJablka = 0;
-	wynik = 0;
 
-	predkosc = 2;
+	predkosc = 3;
 	snakeKierunek = Kierunek::PRAWO;
 
 	timeSinceLastMove = Time::Zero;
@@ -98,14 +112,13 @@ void Engine::rozpocznijGre() {
 
 void Engine::rozpocznijGrePrzetrwanie() {
 	zjedzoneJablka = 0;
-	wynikPrzetrwanie = 0;
 
 	predkosc = 15;
 	snakeKierunek = Kierunek::PRAWO;
 
 	timeSinceLastMove = Time::Zero;
 
-	czesciDoDodania = 25;
+	czesciDoDodania = 6;
 
 	kolejkaKierunku.clear();
 
@@ -550,6 +563,7 @@ void Engine::drawPrzetrwanie() {
 
 	//pauza
 	if (obecnyStanGry == StanGry::PAUZA) {
+		textPauzaPrzetrwanie.setString("    PAUZA\n\n Highscore: \n\n" + to_string(*ptr) + ". \t\t\t" + to_string(wynikPrzetrwanie));
 		window.draw(textPauzaPrzetrwanie);
 	}
 
@@ -656,10 +670,10 @@ void Engine::runPrzetrwanie() {
 			l++;
 			zmienna = 0;
 		}
-		if (l == 10) {
+		if (l == 2) {
 			dodajSciane();
-			predkosc += 2;
-			czesciDoDodania += 3;
+			predkosc += 1;
+			czesciDoDodania += 0;
 			l = 0;
 		}
 		if (k == 6) {

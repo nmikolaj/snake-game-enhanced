@@ -1,3 +1,0 @@
-C:/Users/Miki/Desktop/Projects/Snake/out/build/x86-release/CMakeFiles/Snake.dir
-C:/Users/Miki/Desktop/Projects/Snake/out/build/x86-release/CMakeFiles/edit_cache.dir
-C:/Users/Miki/Desktop/Projects/Snake/out/build/x86-release/CMakeFiles/rebuild_cache.dir
